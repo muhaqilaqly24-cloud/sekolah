@@ -1,0 +1,1395 @@
+/* ==========================================
+   AL-AQIL ISLAMIC BOARDING SCHOOL
+   MAIN STYLESHEET
+========================================== */
+
+/* ==========================================
+   1. GLOBAL
+========================================== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  margin: 0;
+  background: #081610;
+  color: #e8eee9;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1.28;
+  overflow-wrap: break-word;
+}
+
+p {
+  line-height: 1.85;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+.text-gold {
+  color: #eebd62 !important;
+}
+
+.text-green {
+  color: #56d6a0 !important;
+}
+
+.text-soft {
+  color: #c1d0c6 !important;
+}
+
+.bg-main {
+  background: #081610;
+}
+
+.bg-section {
+  background: #0d2018;
+}
+
+.bg-section-alt {
+  background: #10271e;
+}
+
+.section-padding {
+  padding: 90px 0;
+}
+
+.section-label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #eebd62;
+}
+
+.section-title {
+  font-size: clamp(28px, 4vw, 43px);
+  font-weight: 700;
+  color: #fff;
+  margin: 12px 0 20px;
+}
+
+.section-desc {
+  max-width: 650px;
+  color: #c1d0c6;
+  margin: 0 auto;
+}
+
+.section-heading {
+  margin-bottom: 45px;
+}
+
+::selection {
+  background: #eebd62;
+  color: #071b13;
+}
+
+/* ==========================================
+   2. BUTTONS
+========================================== */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  background: #eebd62;
+  color: #102118;
+  border: 1px solid #eebd62;
+  border-radius: 10px;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  padding: 12px 24px;
+
+  transition:
+    background .3s ease,
+    color .3s ease,
+    transform .3s ease,
+    box-shadow .3s ease;
+}
+
+.btn-gold:hover {
+  background: #ffd789;
+  color: #102118;
+  border-color: #ffd789;
+
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px #eebd6233;
+}
+
+.btn-outline-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  background: transparent;
+  color: #eebd62;
+  border: 1px solid #eebd62;
+  border-radius: 10px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  padding: 12px 24px;
+
+  transition:
+    background .3s ease,
+    color .3s ease,
+    transform .3s ease;
+}
+
+.btn-outline-gold:hover {
+  background: #eebd62;
+  color: #102118;
+  border-color: #eebd62;
+
+  transform: translateY(-3px);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #ffd789;
+  outline-offset: 4px;
+}
+
+/* ==========================================
+   3. NAVBAR
+========================================== */
+#main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+
+  padding: 13px 0;
+  transition: padding .3s ease;
+}
+
+#main-header.scrolled {
+  padding: 5px 0;
+}
+
+.custom-navbar {
+  margin: 0 14px;
+  padding: 12px 18px;
+
+  background: rgba(7, 28, 20, .94);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid #ffffff20;
+  border-radius: 16px;
+
+  box-shadow: 0 10px 30px #0005;
+}
+
+.brand-icon {
+  width: 43px;
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  background: #11543b;
+  color: #eebd62;
+
+  border: 1px solid #eebd6240;
+  border-radius: 12px;
+
+  font-size: 20px;
+}
+
+.navbar-brand {
+  color: #ffffff !important;
+
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.4;
+
+  white-space: normal;
+}
+
+.navbar-nav .nav-link {
+  color: #e5eee8 !important;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  padding: 9px 10px !important;
+
+  border-radius: 8px;
+  white-space: nowrap;
+
+  transition: .25s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active-page {
+  color: #eebd62 !important;
+  background: #eebd6214;
+}
+
+.navbar-toggler {
+  color: #fff;
+  border: 1px solid #ffffff40;
+
+  padding: 8px 12px;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 0;
+  height: 3px;
+
+  z-index: 2000;
+
+  background: linear-gradient(
+    90deg,
+    #17b978,
+    #eebd62
+  );
+}
+
+/* ==========================================
+   4. PAGE SYSTEM
+========================================== */
+/* PENTING:
+   Tiap halaman kini merupakan file HTML
+   sendiri, jadi semuanya harus terlihat.
+*/
+.page-section {
+  display: block;
+  min-height: 75vh;
+}
+
+.page-section.active {
+  display: block;
+}
+
+/* ==========================================
+   5. HERO FULL SCREEN
+========================================== */
+.hero-banner,
+.hero-banner.home-hero {
+  position: relative;
+  isolation: isolate;
+
+  width: 100%;
+
+  min-height: 100vh;
+  min-height: 100svh;
+
+  padding: 150px 0 85px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+  text-align: center;
+
+  background: #0b291d;
+}
+
+.hero-banner.home-hero {
+  text-align: left;
+}
+
+/* GAMBAR PARALLAX */
+.hero-bg {
+  position: absolute;
+  display: block;
+
+  top: -15%;
+  left: -15%;
+
+  width: 130%;
+  height: 130%;
+
+  max-width: none;
+
+  object-fit: cover;
+  object-position: center;
+
+  z-index: -3;
+
+  transform: translate3d(0, 0, 0) scale(1.04);
+  will-change: transform;
+}
+
+/* OVERLAY */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+
+  z-index: -2;
+
+  background: linear-gradient(
+    90deg,
+    rgba(2, 18, 13, .91) 0%,
+    rgba(3, 31, 22, .77) 48%,
+    rgba(4, 23, 17, .70) 100%
+  );
+}
+
+/* CAHAYA HIJAU DAN EMAS */
+.hero-pattern {
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 85% 25%,
+      rgba(238, 189, 98, .19),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 15% 80%,
+      rgba(17, 185, 120, .16),
+      transparent 40%
+    );
+}
+
+/* KONTEN HERO */
+.hero-content {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  flex-wrap: wrap;
+
+  background: rgba(12, 71, 48, .8);
+  color: #f6cd81;
+
+  border: 1px solid #eebd6260;
+  border-radius: 30px;
+
+  padding: 9px 17px;
+  margin-bottom: 25px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hero-title {
+  color: #fff;
+
+  font-size: clamp(38px, 5.3vw, 68px);
+  font-weight: 800;
+
+  max-width: 920px;
+
+  line-height: 1.15;
+
+  margin: 0 auto 22px;
+
+  text-shadow: 0 4px 22px #0007;
+}
+
+.home-hero .hero-title {
+  max-width: 780px;
+  margin-left: 0;
+}
+
+.hero-text {
+  max-width: 700px;
+
+  color: #edf6ef;
+
+  font-size: 16px;
+  line-height: 1.9;
+
+  margin: 0 auto 30px;
+
+  text-shadow: 0 2px 12px #0008;
+}
+
+.home-hero .hero-text {
+  margin-left: 0;
+}
+
+.hero-breadcrumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  color: #fff;
+  font-size: 13px;
+}
+
+.hero-breadcrumb a {
+  color: #ffffff;
+  transition: color .3s;
+}
+
+.hero-breadcrumb a:hover {
+  color: #eebd62 !important;
+}
+
+.hero-breadcrumb span {
+  color: #eebd62;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+
+  z-index: 4;
+
+  color: #eebd62;
+  font-size: 25px;
+
+  transform: translateX(-50%);
+
+  animation: scrollBounce 2s infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% {
+    transform: translate(-50%, 0);
+  }
+
+  50% {
+    transform: translate(-50%, 12px);
+  }
+}
+
+/* ==========================================
+   6. CARD SYSTEM
+========================================== */
+.site-card {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+
+  background: #163428;
+
+  border: 1px solid #ffffff1c;
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    border-color .35s ease;
+}
+
+.site-card:hover {
+  transform: translateY(-7px);
+
+  border-color: #eebd6280;
+
+  box-shadow: 0 18px 35px #0005;
+}
+
+/* GAMBAR KARTU */
+.card-image-wrap {
+  width: 100%;
+  height: 230px;
+
+  flex-shrink: 0;
+
+  overflow: hidden;
+
+  background: #103021;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  transition: transform .5s ease;
+}
+
+.site-card:hover .card-image {
+  transform: scale(1.08);
+}
+
+/* ISI KARTU */
+.card-body-custom {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+
+  padding: 26px;
+}
+
+.card-body-custom h3,
+.card-body-custom h4 {
+  color: #fff;
+
+  font-weight: 700;
+
+  margin-bottom: 14px;
+}
+
+.card-body-custom p {
+  color: #c1d0c6;
+  font-size: 14px;
+
+  margin-bottom: 17px;
+}
+
+.card-icon {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #0d5a3e;
+  color: #f2c477;
+
+  border-radius: 15px;
+
+  font-size: 24px;
+
+  margin-bottom: 22px;
+
+  transition:
+    background .3s ease,
+    transform .3s ease;
+}
+
+.site-card:hover .card-icon {
+  background: #176747;
+  transform: rotate(-5deg);
+}
+
+.card-link {
+  background: transparent;
+  border: 0;
+
+  color: #eebd62;
+
+  text-align: left;
+  font-weight: 700;
+
+  padding: 0;
+  margin-top: auto;
+}
+
+.card-link:hover {
+  color: #ffe0a4;
+}
+
+/* ==========================================
+   7. CONTENT IMAGE
+========================================== */
+.content-image {
+  width: 100%;
+  height: 400px;
+
+  object-fit: cover;
+  object-position: center;
+
+  border: 1px solid #eebd6240;
+  border-radius: 20px;
+}
+
+.image-reveal {
+  overflow: hidden;
+
+  border-radius: 20px;
+}
+
+.image-reveal img {
+  transition: transform .7s ease;
+}
+
+.image-reveal:hover img {
+  transform: scale(1.05);
+}
+
+/* ==========================================
+   8. STATISTICS
+========================================== */
+.stat-card {
+  height: 100%;
+
+  padding: 25px 16px;
+
+  background: #163428;
+
+  border: 1px solid #ffffff20;
+  border-radius: 15px;
+
+  text-align: center;
+
+  transition:
+    transform .3s ease,
+    border-color .3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  border-color: #eebd6260;
+}
+
+.stat-number {
+  color: #eebd62;
+
+  font-size: 31px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.stat-card p {
+  color: #c1d0c6;
+  font-size: 13px;
+
+  margin: 5px 0 0;
+}
+
+/* ==========================================
+   9. CHECK ITEM
+========================================== */
+.check-item {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+
+  color: #d4e0d8;
+
+  margin-bottom: 17px;
+}
+
+.check-item i {
+  color: #eebd62;
+
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+/* ==========================================
+   10. ORGANIZATION STRUCTURE
+========================================== */
+.org-node {
+  height: 100%;
+
+  background: #163428;
+
+  border: 1px solid #eebd6250;
+  border-radius: 16px;
+
+  padding: 24px 16px;
+
+  text-align: center;
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease;
+}
+
+.org-node:hover {
+  transform: translateY(-5px);
+
+  box-shadow: 0 12px 30px #0005;
+}
+
+.org-node h4 {
+  color: #fff;
+
+  font-size: 17px;
+
+  margin: 12px 0 8px;
+}
+
+.org-node p {
+  color: #c1d0c6;
+
+  font-size: 12px;
+
+  margin: 0;
+}
+
+.org-badge {
+  display: inline-block;
+
+  background: #0a5539;
+  color: #f6cd81;
+
+  border-radius: 25px;
+
+  padding: 7px 13px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  white-space: normal;
+}
+
+.org-line {
+  width: 2px;
+  height: 42px;
+
+  margin: auto;
+
+  background: #eebd62;
+}
+
+/* ==========================================
+   11. GALLERY
+========================================== */
+.gallery-item {
+  position: relative;
+
+  width: 100%;
+  height: 255px;
+
+  background: #163428;
+
+  border-radius: 16px;
+  overflow: hidden;
+
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: transform .5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  padding: 50px 20px 18px;
+
+  background: linear-gradient(
+    transparent,
+    #00150fe8
+  );
+
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.gallery-col.hide {
+  display: none;
+}
+
+/* FILTER BUTTONS */
+.filter-btn {
+  background: #163428;
+
+  color: #e6eee8;
+
+  border: 1px solid #ffffff30;
+  border-radius: 9px;
+
+  padding: 10px 20px;
+
+  font-weight: 600;
+  font-size: 13px;
+
+  transition: .3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: #eebd62;
+
+  border-color: #eebd62;
+  color: #0c2116;
+}
+
+/* ==========================================
+   12. PPDB FORM
+========================================== */
+.ppdb-box {
+  background: #163428;
+
+  border: 1px solid #eebd6240;
+  border-radius: 20px;
+
+  padding: 35px;
+}
+
+.form-control,
+.form-select {
+  background: #0b2419;
+
+  color: #fff;
+
+  border: 1px solid #ffffff40;
+  border-radius: 10px;
+
+  padding: 13px 15px;
+}
+
+.form-control::placeholder {
+  color: #adbeaf;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background: #0b2419;
+  color: #fff;
+
+  border-color: #eebd62;
+
+  box-shadow: none;
+}
+
+.form-select option {
+  background: #10281d;
+  color: #fff;
+}
+
+.form-control[type="date"] {
+  color-scheme: dark;
+}
+
+.form-label {
+  color: #f1f5f1;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.alert-custom {
+  display: none;
+
+  background: #0b583d;
+  color: #e5fff0;
+
+  border: 1px solid #16a56d;
+  border-radius: 10px;
+
+  padding: 15px;
+  margin-top: 20px;
+}
+
+/* ==========================================
+   13. FOOTER
+========================================== */
+footer {
+  position: relative;
+
+  background: #071b13;
+
+  border-top: 1px solid #eebd6240;
+
+  padding: 70px 0 0;
+
+  color: #c1d0c6;
+}
+
+.footer-title {
+  color: #fff;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  margin-bottom: 22px;
+}
+
+.footer-links {
+  list-style: none;
+
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 11px;
+}
+
+/* PENTING:
+   Berlaku untuk LINK <a> pada
+   footer seluruh halaman.
+*/
+.footer-links a,
+.footer-links button {
+  display: inline-block;
+
+  background: transparent;
+  border: 0;
+
+  padding: 0;
+
+  color: #c1d0c6;
+
+  font-size: 13px;
+  text-align: left;
+
+  transition: color .3s;
+}
+
+.footer-links a:hover,
+.footer-links button:hover {
+  color: #eebd62;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 39px;
+  height: 39px;
+
+  background: #ffffff18;
+  color: #fff;
+
+  border-radius: 10px;
+
+  transition: .3s ease;
+}
+
+.social-link:hover {
+  background: #eebd62;
+  color: #081610;
+
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  border-top: 1px solid #ffffff20;
+
+  margin-top: 50px;
+  padding: 22px 0;
+
+  text-align: center;
+
+  color: #a2b4a8;
+  font-size: 12px;
+}
+
+/* ==========================================
+   14. FLOATING BUTTONS
+========================================== */
+#backToTop {
+  position: fixed;
+
+  bottom: 90px;
+  right: 22px;
+
+  z-index: 1040;
+
+  width: 46px;
+  height: 46px;
+
+  display: none;
+
+  background: #eebd62;
+  color: #102118;
+
+  border: 0;
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  box-shadow: 0 8px 20px #0004;
+
+  transition: transform .3s ease;
+}
+
+#backToTop:hover {
+  transform: translateY(-4px);
+}
+
+#waButton {
+  position: fixed;
+
+  bottom: 22px;
+  right: 20px;
+
+  z-index: 1040;
+
+  width: 57px;
+  height: 57px;
+
+  background: #25d366;
+  color: white;
+
+  border: 0;
+  border-radius: 50%;
+
+  font-size: 28px;
+
+  box-shadow: 0 8px 25px #0006;
+
+  cursor: pointer;
+
+  transition: transform .3s ease;
+}
+
+#waButton:hover {
+  transform: scale(1.08);
+}
+
+#waBox {
+  position: fixed;
+
+  bottom: 91px;
+  right: 20px;
+
+  z-index: 1045;
+
+  display: none;
+
+  width: min(330px, calc(100% - 40px));
+
+  padding: 22px;
+
+  background: #163428;
+
+  border: 1px solid #eebd6260;
+  border-radius: 15px;
+
+  box-shadow: 0 15px 40px #0008;
+}
+
+/* ==========================================
+   15. IMAGE LIGHTBOX
+========================================== */
+#lightbox {
+  position: fixed;
+  inset: 0;
+
+  z-index: 2100;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  padding: 60px 20px 25px;
+
+  background: #000e;
+}
+
+#lightbox img {
+  max-width: 100%;
+  max-height: 85vh;
+
+  object-fit: contain;
+
+  border-radius: 10px;
+}
+
+#closeLightbox {
+  position: absolute;
+
+  right: 25px;
+  top: 15px;
+
+  background: transparent;
+  color: white;
+
+  border: 0;
+
+  font-size: 30px;
+
+  cursor: pointer;
+}
+
+/* ==========================================
+   16. BOOTSTRAP MODAL
+========================================== */
+.modal-content {
+  border-radius: 18px;
+}
+
+.modal-header {
+  padding: 20px 24px;
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+/* ==========================================
+   17. DESKTOP RESPONSIVE
+========================================== */
+@media (max-width: 1199px) {
+
+  .navbar-nav .nav-link {
+    font-size: 11px;
+    padding: 8px 6px !important;
+  }
+
+}
+
+/* ==========================================
+   18. TABLET
+========================================== */
+@media (max-width: 991px) {
+
+  .custom-navbar {
+    margin: 0 10px;
+    padding: 10px 14px;
+  }
+
+  .navbar-collapse {
+    background: #0b281c;
+
+    padding: 15px;
+    margin-top: 14px;
+
+    border-radius: 12px;
+
+    max-height: 75vh;
+    overflow-y: auto;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 14px;
+    padding: 11px !important;
+  }
+
+  .section-padding {
+    padding: 65px 0;
+  }
+
+  .hero-banner,
+  .hero-banner.home-hero {
+    padding: 140px 0 80px;
+  }
+
+  .hero-title {
+    font-size: clamp(35px, 6vw, 54px);
+  }
+
+  .hero-text {
+    font-size: 15px;
+  }
+
+  .content-image {
+    height: 340px;
+  }
+
+}
+
+/* ==========================================
+   19. MOBILE
+========================================== */
+@media (max-width: 575px) {
+
+  .navbar-brand {
+    font-size: 11px;
+  }
+
+  .brand-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 17px;
+  }
+
+  .hero-banner,
+  .hero-banner.home-hero {
+    min-height: 100vh;
+    min-height: 100svh;
+
+    padding: 130px 0 75px;
+  }
+
+  .hero-bg {
+    top: -8%;
+    left: -8%;
+
+    width: 116%;
+    height: 116%;
+  }
+
+  .hero-title {
+    font-size: clamp(30px, 9vw, 40px);
+  }
+
+  .hero-text {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: .5px;
+  }
+
+  .hero-breadcrumb {
+    font-size: 12px;
+  }
+
+  .section-padding {
+    padding: 55px 0;
+  }
+
+  .section-title {
+    font-size: 29px;
+  }
+
+  .content-image {
+    height: 260px;
+  }
+
+  .card-image-wrap {
+    height: 210px;
+  }
+
+  .gallery-item {
+    height: 235px;
+  }
+
+  .card-body-custom {
+    padding: 22px;
+  }
+
+  .ppdb-box {
+    padding: 22px;
+  }
+
+  .stat-number {
+    font-size: 25px;
+  }
+
+  .org-node h4 {
+    font-size: 15px;
+  }
+
+  footer {
+    padding-top: 55px;
+  }
+
+}
+
+/* ==========================================
+   20. REDUCED MOTION
+========================================== */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+
+}
+/* ==========================================
+   FIX PPDB - KARTU TIDAK BERTABRAKAN
+========================================== */
+
+/* Dua kartu informasi sebelah kanan */
+#page-ppdb .row > .col-lg-5 > .site-card {
+  height: auto !important;
+  min-height: 0;
+  margin-bottom: 24px !important;
+}
+
+/* Hilangkan jarak ekstra kartu terakhir */
+#page-ppdb .row > .col-lg-5 > .site-card:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Konten tidak keluar dari kolom */
+#page-ppdb .row > .col-lg-5 {
+  min-width: 0;
+}
+
+/* Kotak formulir */
+#page-ppdb .ppdb-box {
+  height: auto;
+  overflow: visible;
+}
+
+/* Jarak antarseksi PPDB */
+#page-ppdb .section-padding {
+  padding-top: 75px;
+  padding-bottom: 75px;
+}
+
+/* Judul dan paragraf tetap berada di dalam kartu */
+#page-ppdb .site-card h3,
+#page-ppdb .site-card p,
+#page-ppdb .check-item span {
+  overflow-wrap: break-word;
+}
+
+/* Tampilan mobile */
+@media (max-width: 991px) {
+  #page-ppdb .row > .col-lg-5 {
+    margin-top: 28px;
+  }
+
+  #page-ppdb .section-padding {
+    padding-top: 55px;
+    padding-bottom: 55px;
+  }
+}
