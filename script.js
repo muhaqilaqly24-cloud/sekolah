@@ -1,699 +1,478 @@
-/* ==========================================
-   AL-AQIL ISLAMIC BOARDING SCHOOL
-   SCRIPT MULTIPAGE
-========================================== */
+/* ==============================================
+   CONFIG
+============================================== */
+const pageNames = [
+  "beranda",
+  "profil-sekolah",
+  "visi-misi",
+  "struktur-organisasi",
+  "jurusan",
+  "program",
+  "berita",
+  "galeri",
+  "asrama",
+  "ppdb"
+];
 
-document.addEventListener("DOMContentLoaded", function () {
+const searchKeywords = {
+  "beranda": ["home", "utama"],
+  "profil-sekolah": ["profil", "sejarah", "tentang"],
+  "visi-misi": ["visi", "misi", "tujuan"],
+  "struktur-organisasi": ["struktur", "organisasi", "pimpinan"],
+  "jurusan": ["jurusan", "keahlian", "rpl", "mipa"],
+  "program": ["program", "tahfizh", "coding", "bahasa"],
+  "berita": ["berita", "artikel", "informasi"],
+  "galeri": ["galeri", "foto", "dokumentasi"],
+  "asrama": ["fasilitas", "asrama", "masjid", "laboratorium"],
+  "ppdb": ["daftar", "pendaftaran", "ppdb", "santri baru"]
+};
 
-  /* ========================================
-     1. COPYRIGHT YEAR
-  ======================================== */
-  const currentYear = document.getElementById("currentYear");
-
-  if (currentYear) {
-    currentYear.textContent = new Date().getFullYear();
-  }
-
-
-  /* ========================================
-     2. ANIMATION ON SCROLL
-  ======================================== */
+/* ==============================================
+   AOS
+============================================== */
+function initializeAOS() {
   if (typeof AOS !== "undefined") {
-
     AOS.init({
       duration: 950,
       once: true,
       offset: 65,
       easing: "ease-out-cubic",
-      delay: 0,
-      mirror: false,
-
       disable: window.matchMedia(
         "(prefers-reduced-motion: reduce)"
       ).matches
     });
+  }
+}
 
+/* ==============================================
+   NAVIGASI HALAMAN
+============================================== */
+function navigateTo(pageName) {
+
+  if (!pageNames.includes(pageName)) {
+    pageName = "beranda";
   }
 
-
-  /* ========================================
-     3. ACTIVE NAVBAR
-  ======================================== */
-  const currentFile =
-    window.location.pathname.split("/").pop() || "index.html";
-
-  const navLinks =
-    document.querySelectorAll(".navbar-nav .nav-link");
-
-  navLinks.forEach(function (link) {
-
-    const href = link.getAttribute("href");
-
-    if (!href) return;
-
-    const linkFile = href.split("/").pop();
-
-    if (linkFile === currentFile) {
-
-      link.classList.add("active-page");
-
-      link.setAttribute("aria-current", "page");
-
-    } else {
-
-      link.classList.remove("active-page");
-
-      link.removeAttribute("aria-current");
-
-    }
-
+  document.querySelectorAll(".page-section")
+  .forEach(function(page) {
+    page.classList.remove("active");
+    page.style.display = "none";
   });
 
+  const destination =
+    document.getElementById("page-" + pageName);
 
-  /* ========================================
-     4. SCROLL PROGRESS
-  ======================================== */
-  const progressBar =
-    document.getElementById("scroll-progress");
+  if (!destination) return;
 
-  const header =
-    document.getElementById("main-header");
+  destination.style.display = "block";
+  destination.classList.add("active");
 
-  const backToTop =
-    document.getElementById("backToTop");
+  document.querySelectorAll(".nav-link")
+  .forEach(function(link) {
+    link.classList.remove("active-page");
+  });
 
+  const activeLink =
+    document.getElementById("nav-" + pageName);
 
-  function updateScrollUI() {
-
-    const scrollY = window.scrollY;
-
-    const documentHeight =
-      document.documentElement.scrollHeight -
-      window.innerHeight;
-
-    let scrollPercent = 0;
-
-    if (documentHeight > 0) {
-
-      scrollPercent =
-        (scrollY / documentHeight) * 100;
-
-    }
-
-    if (progressBar) {
-
-      progressBar.style.width =
-        scrollPercent + "%";
-
-    }
-
-    if (header) {
-
-      header.classList.toggle(
-        "scrolled",
-        scrollY > 60
-      );
-
-    }
-
-    if (backToTop) {
-
-      backToTop.style.display =
-        scrollY > 350 ? "block" : "none";
-
-    }
-
+  if (activeLink) {
+    activeLink.classList.add("active-page");
   }
 
+  window.scrollTo(0, 0);
 
-  /* ========================================
-     5. HERO PARALLAX
-  ======================================== */
-  const heroBanner =
-    document.querySelector(".hero-banner");
-
-  const heroImage =
-    heroBanner
-      ? heroBanner.querySelector(".hero-bg")
-      : null;
-
-
-  function updateParallax() {
-
-    if (!heroBanner || !heroImage) return;
-
-    const reducedMotion =
-      window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-
-    if (reducedMotion) {
-
-      heroImage.style.transform = "none";
-      return;
-
-    }
-
-    const rect = heroBanner.getBoundingClientRect();
-
-    if (
-      rect.bottom < 0 ||
-      rect.top > window.innerHeight
-    ) {
-      return;
-    }
-
-    const movement = Math.max(
-      -100,
-      Math.min(100, -rect.top * 0.28)
-    );
-
-    heroImage.style.transform =
-      "translate3d(0," +
-      movement +
-      "px,0) scale(1.04)";
-
+  if (window.location.hash !== "#" + pageName) {
+    history.replaceState(null, "", "#" + pageName);
   }
 
+  const menu = document.getElementById("mobileNavbar");
 
-  /* ========================================
-     6. OPTIMIZED SCROLL EVENT
-  ======================================== */
-  let ticking = false;
+  if (menu && menu.classList.contains("show")) {
+    if (typeof bootstrap !== "undefined") {
+      bootstrap.Collapse.getOrCreateInstance(menu, {
+        toggle: false
+      }).hide();
+    } else {
+      menu.classList.remove("show");
+    }
+  }
 
-  function onScroll() {
+  // Reset animasi saat pindah halaman
+  destination.querySelectorAll("[data-aos]")
+  .forEach(function(element) {
+    element.classList.remove("aos-animate");
+  });
 
-    if (ticking) return;
+  setTimeout(function() {
+    if (typeof AOS !== "undefined") {
+      AOS.refreshHard();
+    }
 
-    ticking = true;
+    updateParallax();
+    updateScrollUI();
+  }, 100);
+}
 
-    window.requestAnimationFrame(function () {
+window.navigateTo = navigateTo;
 
-      updateScrollUI();
-      updateParallax();
+/* ==============================================
+   NAVLINK CLICK
+============================================== */
+function initializeNavigation() {
 
-      ticking = false;
+  document.querySelectorAll(".navbar-nav .nav-link")
+  .forEach(function(link) {
 
+    link.addEventListener("click", function(event) {
+      event.preventDefault();
+
+      const page = link.getAttribute("href").replace("#", "");
+      navigateTo(page);
     });
 
+  });
+}
+
+/* ==============================================
+   SCROLL UI
+============================================== */
+function updateScrollUI() {
+
+  const scrollY = window.scrollY;
+  const maxScroll =
+    document.documentElement.scrollHeight - window.innerHeight;
+
+  const percent = maxScroll > 0
+    ? (scrollY / maxScroll) * 100
+    : 0;
+
+  document.getElementById("scroll-progress").style.width =
+    percent + "%";
+
+  document.getElementById("main-header")
+    .classList.toggle("scrolled", scrollY > 60);
+
+  document.getElementById("backToTop").style.display =
+    scrollY > 350 ? "block" : "none";
+}
+
+/* ==============================================
+   FULL HERO PARALLAX
+============================================== */
+function updateParallax() {
+
+  const page = document.querySelector(".page-section.active");
+  if (!page) return;
+
+  const hero = page.querySelector(".hero-banner");
+  if (!hero) return;
+
+  const background = hero.querySelector(".hero-bg");
+  if (!background) return;
+
+  if (window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches) {
+    background.style.transform = "none";
+    return;
   }
 
-  window.addEventListener(
-    "scroll",
-    onScroll,
-    { passive: true }
+  const position = hero.getBoundingClientRect();
+
+  if (
+    position.bottom < 0 ||
+    position.top > window.innerHeight
+  ) {
+    return;
+  }
+
+  const movement = Math.max(
+    -100,
+    Math.min(100, -position.top * 0.28)
   );
 
-  window.addEventListener("resize", function () {
+  background.style.transform =
+    "translate3d(0," + movement + "px,0) scale(1.04)";
+}
 
+/* ==============================================
+   SCROLL RAF
+============================================== */
+let ticking = false;
+
+function handleScroll() {
+
+  if (ticking) return;
+
+  ticking = true;
+
+  window.requestAnimationFrame(function() {
     updateScrollUI();
     updateParallax();
-
-    if (typeof AOS !== "undefined") {
-      AOS.refresh();
-    }
-
+    ticking = false;
   });
+}
 
+window.addEventListener("scroll", handleScroll, {
+  passive: true
+});
+
+window.addEventListener("resize", function() {
   updateScrollUI();
   updateParallax();
+});
 
+/* ==============================================
+   GALERI FILTER
+============================================== */
+function initializeGallery() {
 
-  /* ========================================
-     7. GALLERY FILTER
-  ======================================== */
-  const filterButtons =
-    document.querySelectorAll(".filter-btn");
+  const buttons = document.querySelectorAll(".filter-btn");
+  const photos = document.querySelectorAll(".gallery-col");
 
-  const galleryColumns =
-    document.querySelectorAll(".gallery-col");
+  buttons.forEach(function(button) {
 
-  filterButtons.forEach(function (button) {
+    button.addEventListener("click", function() {
 
-    button.addEventListener("click", function () {
+      const selected = button.getAttribute("data-filter");
 
-      const selectedFilter =
-        button.getAttribute("data-filter");
-
-      filterButtons.forEach(function (btn) {
-
+      buttons.forEach(function(btn) {
         btn.classList.remove("active");
-
       });
 
       button.classList.add("active");
 
-      galleryColumns.forEach(function (item) {
+      photos.forEach(function(photo) {
+        const category = photo.getAttribute("data-category");
 
-        const category =
-          item.getAttribute("data-category");
-
-        const shouldHide =
-          selectedFilter !== "all" &&
-          selectedFilter !== category;
-
-        item.classList.toggle(
+        photo.classList.toggle(
           "hide",
-          shouldHide
+          selected !== "all" && category !== selected
         );
-
-        // Pastikan item yang ditampilkan
-        // tidak tersembunyi oleh animasi lama
-        if (!shouldHide) {
-
-          item.classList.add("aos-animate");
-
-        }
-
       });
 
       if (typeof AOS !== "undefined") {
-
-        setTimeout(function () {
-          AOS.refresh();
-        }, 50);
-
+        AOS.refresh();
       }
 
     });
 
   });
+}
 
+/* ==============================================
+   LIGHTBOX
+============================================== */
+function openLightbox(element) {
 
-  /* ========================================
-     8. SEARCH PAGE
-  ======================================== */
-  const searchForm =
-    document.getElementById("searchForm");
+  const photo = element.querySelector("img");
+  if (!photo) return;
 
-  const searchInput =
-    document.getElementById("searchInput");
+  document.getElementById("lightboxImage").src = photo.src;
+  document.getElementById("lightboxImage").alt = photo.alt;
 
-  const searchResult =
-    document.getElementById("searchResult");
+  document.getElementById("lightbox").style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
 
+function closeLightbox() {
+  document.getElementById("lightbox").style.display = "none";
+  document.body.style.overflow = "";
+}
 
-  const searchablePages = [
+document.getElementById("lightbox")
+.addEventListener("click", function(event) {
+  if (event.target.id === "lightbox") {
+    closeLightbox();
+  }
+});
 
-    {
-      file: "index.html",
-      keywords: [
-        "beranda",
-        "home",
-        "utama",
-        "sekolah"
-      ]
-    },
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") {
+    closeLightbox();
+  }
+});
 
-    {
-      file: "profil.html",
-      keywords: [
-        "profil",
-        "sejarah",
-        "tentang al aqil",
-        "identitas"
-      ]
-    },
+/* ==============================================
+   SEARCH
+============================================== */
+function initializeSearch() {
 
-    {
-      file: "visi-misi.html",
-      keywords: [
-        "visi",
-        "misi",
-        "tujuan",
-        "nilai pendidikan"
-      ]
-    },
+  document.getElementById("searchForm")
+  .addEventListener("submit", function(event) {
 
-    {
-      file: "struktur.html",
-      keywords: [
-        "struktur",
-        "organisasi",
-        "pimpinan",
-        "yayasan",
-        "guru"
-      ]
-    },
+    event.preventDefault();
 
-    {
-      file: "jurusan.html",
-      keywords: [
-        "jurusan",
-        "konsentrasi",
-        "rpl",
-        "mipa",
-        "robotika",
-        "multimedia"
-      ]
-    },
+    const keyword =
+      document.getElementById("searchInput")
+      .value.toLowerCase().trim();
 
-    {
-      file: "program.html",
-      keywords: [
-        "program",
-        "tahfizh",
-        "coding",
-        "bahasa",
-        "ekstrakurikuler"
-      ]
-    },
+    if (!keyword) return;
 
-    {
-      file: "berita.html",
-      keywords: [
-        "berita",
-        "kegiatan",
-        "artikel",
-        "informasi"
-      ]
-    },
+    let result = null;
 
-    {
-      file: "galeri.html",
-      keywords: [
-        "galeri",
-        "foto",
-        "dokumentasi",
-        "gambar"
-      ]
-    },
+    for (const pageName of pageNames) {
 
-    {
-      file: "fasilitas.html",
-      keywords: [
-        "fasilitas",
-        "asrama",
-        "masjid",
-        "laboratorium",
-        "perpustakaan",
-        "lapangan"
-      ]
-    },
+      const values = [
+        pageName,
+        ...(searchKeywords[pageName] || [])
+      ];
 
-    {
-      file: "ppdb.html",
-      keywords: [
-        "ppdb",
-        "daftar",
-        "pendaftaran",
-        "santri baru",
-        "formulir"
-      ]
+      if (values.some(function(value) {
+        return value.includes(keyword) ||
+               keyword.includes(value);
+      })) {
+        result = pageName;
+        break;
+      }
     }
 
-  ];
+    const resultBox = document.getElementById("searchResult");
 
+    if (result) {
 
-  if (searchForm && searchInput) {
+      const modal = document.getElementById("searchModal");
 
-    searchForm.addEventListener(
-      "submit",
-      function (event) {
-
-        event.preventDefault();
-
-        const keyword =
-          searchInput.value.trim().toLowerCase();
-
-        if (!keyword) return;
-
-        let foundPage = null;
-
-        for (const page of searchablePages) {
-
-          const isMatch =
-            page.keywords.some(function (word) {
-
-              return word.includes(keyword) ||
-                     keyword === word;
-
-            });
-
-          if (isMatch) {
-
-            foundPage = page;
-            break;
-
-          }
-
-        }
-
-        if (foundPage) {
-
-          window.location.href = foundPage.file;
-
-        } else if (searchResult) {
-
-          searchResult.textContent =
-            "Halaman tidak ditemukan. " +
-            "Coba kata kunci seperti profil, " +
-            "jurusan, berita, galeri, atau ppdb.";
-
-        }
-
+      if (typeof bootstrap !== "undefined") {
+        bootstrap.Modal.getOrCreateInstance(modal).hide();
       }
-    );
 
-  }
+      navigateTo(result);
+      resultBox.textContent = "";
 
+    } else {
+      resultBox.textContent =
+        "Halaman tidak ditemukan. Coba kata kunci lain.";
+    }
 
-  /* ========================================
-     9. PPDB FORM
-  ======================================== */
-  const ppdbForm =
-    document.getElementById("ppdbForm");
+  });
+}
 
-  const ppdbSuccess =
-    document.getElementById("ppdbSuccess");
+/* ==============================================
+   PPDB FRONTEND
+============================================== */
+function initializePPDB() {
 
-  const ppdbSuccessText =
-    document.getElementById("ppdbSuccessText");
+  document.getElementById("ppdbForm")
+  .addEventListener("submit", function(event) {
 
+    event.preventDefault();
 
-  if (ppdbForm) {
+    if (!this.checkValidity()) {
+      this.reportValidity();
+      return;
+    }
 
-    ppdbForm.addEventListener(
-      "submit",
-      function (event) {
+    const name =
+      document.getElementById("namaSantri").value.trim();
 
-        event.preventDefault();
+    const jurusan =
+      document.getElementById("pilihanJurusan").value;
 
-        if (!ppdbForm.checkValidity()) {
+    const text = document.getElementById("ppdbSuccessText");
 
-          ppdbForm.reportValidity();
-          return;
+    text.textContent =
+      "Ringkasan formulir " + name +
+      " untuk pilihan " + jurusan +
+      " berhasil dibuat. Data belum dikirim atau disimpan.";
 
-        }
+    const box = document.getElementById("ppdbSuccess");
+    box.style.display = "block";
 
-        const nama =
-          document.getElementById("namaSantri").value.trim();
+    box.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  });
+}
 
-        const jurusan =
-          document.getElementById("pilihanJurusan").value;
+/* ==============================================
+   FLOATING BUTTONS
+============================================== */
+function toggleWA() {
+  const box = document.getElementById("waBox");
 
-        if (ppdbSuccessText) {
+  box.style.display = box.style.display === "block"
+    ? "none"
+    : "block";
+}
 
-          ppdbSuccessText.textContent =
-            "Ringkasan formulir atas nama " +
-            nama +
-            " dengan pilihan konsentrasi " +
-            jurusan +
-            " berhasil dibuat. " +
-            "Data ini belum dikirim atau disimpan " +
-            "ke database sekolah.";
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
 
-        }
+/* ==============================================
+   IMAGE ERROR FALLBACK
+============================================== */
+function initializeImageFallback() {
 
-        if (ppdbSuccess) {
+  document.querySelectorAll("img")
+  .forEach(function(img) {
 
-          ppdbSuccess.style.display = "block";
-
-          ppdbSuccess.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-          });
-
-        }
-
-      }
-    );
-
-  }
-
-
-  /* ========================================
-     10. IMAGE ERROR FALLBACK
-  ======================================== */
-  const images =
-    document.querySelectorAll("img");
-
-  images.forEach(function (img) {
-
-    function handleImageError() {
-
-      if (img.dataset.fallbackApplied === "true") {
-        return;
-      }
+    function fallback() {
+      if (img.dataset.fallbackApplied) return;
 
       img.dataset.fallbackApplied = "true";
 
       if (img.classList.contains("hero-bg")) {
-
         img.style.display = "none";
 
-        const parent = img.parentElement;
-
-        if (parent) {
-
-          parent.style.background =
-            "linear-gradient(135deg,#0f543a,#06170f)";
-
-        }
-
+        img.parentElement.style.background =
+          "linear-gradient(135deg,#0f543a,#06170f)";
       } else {
-
         img.style.background = "#163428";
-
       }
-
     }
 
-    img.addEventListener(
-      "error",
-      handleImageError
-    );
+    img.addEventListener("error", fallback);
 
-    if (
-      img.complete &&
-      img.naturalWidth === 0
-    ) {
-
-      handleImageError();
-
+    if (img.complete && img.naturalWidth === 0) {
+      fallback();
     }
-
   });
+}
 
+/* ==============================================
+   INIT WEBSITE
+============================================== */
+document.addEventListener("DOMContentLoaded", function() {
+
+  document.getElementById("currentYear").textContent =
+    new Date().getFullYear();
+
+  initializeAOS();
+  initializeNavigation();
+  initializeGallery();
+  initializeSearch();
+  initializePPDB();
+  initializeImageFallback();
+
+  const initialPage = window.location.hash.replace("#", "");
+
+  navigateTo(
+    pageNames.includes(initialPage)
+      ? initialPage
+      : "beranda"
+  );
+
+  updateScrollUI();
+  updateParallax();
 
 });
 
+window.addEventListener("hashchange", function() {
 
-/* ==========================================
-   11. GALLERY LIGHTBOX
-   GLOBAL FUNCTIONS
-========================================== */
-
-function openLightbox(element) {
-
-  const img = element.querySelector("img");
-
-  const lightbox =
-    document.getElementById("lightbox");
-
-  const lightboxImage =
-    document.getElementById("lightboxImage");
-
-  if (!img || !lightbox || !lightboxImage) return;
-
-  lightboxImage.src = img.src;
-  lightboxImage.alt = img.alt;
-
-  lightbox.style.display = "flex";
-
-  document.body.style.overflow = "hidden";
-
-}
-
-
-function closeLightbox() {
-
-  const lightbox =
-    document.getElementById("lightbox");
-
-  if (lightbox) {
-
-    lightbox.style.display = "none";
-
-  }
-
-  document.body.style.overflow = "";
-
-}
-
-
-/* ==========================================
-   12. LIGHTBOX CLICK OUTSIDE
-========================================== */
-document.addEventListener("click", function (event) {
-
-  const lightbox =
-    document.getElementById("lightbox");
+  const pageName = window.location.hash.replace("#", "");
 
   if (
-    lightbox &&
-    event.target === lightbox
+    pageNames.includes(pageName) &&
+    !document.getElementById("page-" + pageName)
+      .classList.contains("active")
   ) {
-
-    closeLightbox();
-
+    navigateTo(pageName);
   }
 
 });
-
-
-/* ==========================================
-   13. ESC KEY
-========================================== */
-document.addEventListener("keydown", function (event) {
-
-  if (event.key === "Escape") {
-
-    closeLightbox();
-
-    const waBox =
-      document.getElementById("waBox");
-
-    if (waBox) {
-
-      waBox.style.display = "none";
-
-    }
-
-  }
-
-});
-
-
-/* ==========================================
-   14. WHATSAPP INFO BOX
-========================================== */
-function toggleWA() {
-
-  const waBox =
-    document.getElementById("waBox");
-
-  if (!waBox) return;
-
-  waBox.style.display =
-    waBox.style.display === "block"
-      ? "none"
-      : "block";
-
-}
-
-
-/* ==========================================
-   15. BACK TO TOP
-========================================== */
-function scrollToTop() {
-
-  window.scrollTo({
-
-    top: 0,
-
-    behavior: "smooth"
-
-  });
-
-}
